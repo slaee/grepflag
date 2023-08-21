@@ -17,8 +17,8 @@ done
 shift $((OPTIND - 1))
 
 if [ "$recursive" = true ]; then
-  grep  -oPr '.*\{.*?\}' "$@"
+  grep  -aoPr '.*\{.*?\}' "$@"
 else
-  grep -oP '.*\{.*?\}' "$@"
+  grep -aoP '.*\{.*?\}' "$@"
 fi
 
