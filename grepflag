@@ -13,12 +13,12 @@ show_help() {
 	exit 0
 }
 
-regex='\{[^{}]+\}'
-ors_regex='{ORS = (/}$/) ? "\n" : ""; print}'
+regex='.*\{[^{}]+\}'
+ors_regex='{ORS = (/}$/) ? "\n\n" : ""; print}'
 
 if [[ $# -eq 0 ]]; then
 	if [[ -p /dev/stdin ]]; then
-		pcregrep -aoM "$regex" "$@" | awk "$ors_regex"
+		pcregrep -aoM "$regex" "$@" | awk "$ors_regex" | sed 's/ //g'
 	else
 		printf "Error: No parameter provided.\n\n"
 		show_help
@@ -31,7 +31,7 @@ elif [[ $# -gt 0 ]]; then
 				printf "Error: The parameter for -r should be a directory.\n\n"
 				exit 1
 			fi
-			grep -aoPr "$regex" "$@"
+			pcregrep -aoMr "$regex" "$@" | awk "$ors_regex" | awk -F ':' '{print $2}' | sed 's/ //g'
 			exit 1
 			;;
 		-c | --cat)
@@ -48,13 +48,15 @@ elif [[ $# -gt 0 ]]; then
 			;;
 		*)
 			if [[ -f "$1" ]]; then
-				strings_output="$(strings "$1" | pcregrep -aoM "$regex" | awk "$ors_regex")"
-				cat_output="$(cat "$@" | pcregrep -aoM "$regex" | awk "$ors_regex")"
+				strings_output="$(strings "$1" | pcregrep -aoM "$regex" | awk "$ors_regex" | sed 's/ //g')"
+				cat_output="$(cat "$@" | pcregrep -aoM "$regex" | awk "$ors_regex" | sed 's/ //g')"
 
 				if [ "$strings_output" = "$cat_output" ]; then
 					echo "$strings_output"
 				else
-					strings "$1" | pcregrep -aoM "$regex" | awk "$ors_regex" && cat "$@" | pcregrep -aoM "$regex" | awk "$ors_regex"
+					strings "$1" | pcregrep -aoM "$regex" | awk "$ors_regex" | sed 's/ //g'
+					cat "$@" | pcregrep -aoM "$regex" | awk "$ors_regex" | sed 's/ //g'
+					cat "$@" | grep -aoP "$regex" | sed 's/ //g'
 				fi
 			else 
 				printf "Error: File '%s' does not exist.\n\n" "$1"

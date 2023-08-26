@@ -7,6 +7,8 @@ if [ "$uid" -ne 0 ]
     exit
 fi
 
+apt-get update && apt-get install -y pcregrep
+
 cp ./grepflag /usr/local/bin/grepflag
 
-echo "Installation complete. Usage: $ grepflag [FILE | OPTIONS [DIRECTORY]]"
+printf "\n\nInstallation complete.\nUsage: $ grepflag [FILE | [OPTIONS] [DIRECTORY|SUB-DIRECTORIES]]\n\n"
