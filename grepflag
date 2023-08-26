@@ -1,24 +1,54 @@
 #!/bin/bash
 
-recursive=false
+show_help() {
+	printf "Usage: $ grepflag [FILE | [OPTIONS] DIRECTORY]\n\n"
+	echo "Strings with grepflag     $ strings flag.txt | grepflag"
+	echo "For cat binary file try   $ cat flag.img | grepflag"
+	echo "OPTIONS:"
+	echo "  -r          Search recursively in directories"
+	printf "  -h, --help  Show this help message\n\n"
+	exit 0
+}
 
-while getopts ":r" opt; do
-  case $opt in
-    r)
-      recursive=true
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-  esac
-done
+regex='.*\{.+?\}'
 
-shift $((OPTIND - 1))
+if [[ $# -eq 0 ]]; then
+	if [[ -p /dev/stdin ]]; then
+		grep -aoP "$regex" "$@"
+	else
+		show_help
+	fi
+elif [[ $# -eq 1 ]]; then
+	if [[ -f "$1" ]]; then
+		strings_output="$(strings "$1" | grep -aoP "$regex")"
+		cat_output="$(cat "$@" | grep -aoP "$regex")"
 
-if [ "$recursive" = true ]; then
-  grep  -aoPr '.*\{.*?\}' "$@"
+		# check if $strings_output and $cat_output is equal
+		if [ "$strings_output" = "$cat_output" ]; then
+			echo "$strings_output"
+		else
+			strings "$1" | grep -aoP "$regex" && cat "$@" | grep -aoP "$regex"
+		fi
+	fi
+elif [[ $# -eq 2 ]]; then
+	while [[ $# -gt 0 ]]; do
+		case $1 in
+		-r)
+			if [ ! -d "$2" ]; then
+				echo "Error: The parameter for -r should be a directory."
+				exit 1
+			fi
+			grep -aoPr "$regex" "$@"
+			break
+			;;
+		-h | --help)
+			show_help
+			;;
+		*)
+			show_help
+			;;
+		esac
+	done
 else
-  grep -aoP '.*\{.*?\}' "$@"
+	show_help
 fi
-
