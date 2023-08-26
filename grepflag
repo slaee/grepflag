@@ -31,7 +31,7 @@ elif [[ $# -gt 0 ]]; then
 				printf "Error: The parameter for -r should be a directory.\n\n"
 				exit 1
 			fi
-			pcregrep -aoMr "$regex" "$@" | awk "$ors_regex" | awk -F ':' '{print $2}' | sed 's/ //g'
+			pcregrep -aoMr '\{[^{}]+\}' "$@" | awk -F ':' '{print $2}' | sed 's/ //g'
 			exit 1
 			;;
 		-c | --cat)
