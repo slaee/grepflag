@@ -8,7 +8,7 @@ $ sudo ./install.sh
 
 ### Usage
 
-Running this command will run strings by default
+Running this command will run strings by default if cat output and strings is not equal other wise will print both cat and strings output
 ```
 $ grepflag file.any
 ```
