@@ -3,7 +3,8 @@ A grep tool for CTF that will print the flag-like `ANYSTRINGS{ANYSTRINGS_NOT_EMP
 
 By: r3dh4ir
 
-![grepflagrecursive](https://i.imgur.com/JzHkTLd.gif)
+![ezgif com-video-to-gif](https://github.com/slaee/grepflag/assets/64179667/e00874c0-4867-400e-9bd8-4523dfb1c911)
+
 
 ### Installation 
 ```
