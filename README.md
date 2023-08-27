@@ -5,25 +5,6 @@ By: r3dh4ir
 
 ![grepflagrecursive](https://im.ezgif.com/tmp/ezgif-1-a6d8791136.gif)
 
-### Sample Outputs
-```
-$ cat test.txt
-asdfasdfasdf
-{asdfadsf
-adsfasdfas
-asdfadsfadsf}
-asdfadsf
-adsfasdf
-{asdfadsfadsf}
-```
-
-With `grepflag`
-```
-$ cat test.txt | grepflag
-{asdfadsfadsfasdfasasdfadsfadsf}
-{asdfadsfadsf}
-```
-
 ### Installation 
 ```
 $ sudo ./install.sh
@@ -49,4 +30,23 @@ $ cat flag.img | grepflag -c
 For recursive search of matched paired '{}' from a directory use the following command with the `-r` option
 ```
 $ grepflag -r directory/
+```
+
+### Sample Outputs
+```
+$ cat test.txt
+asdfasdfasdf
+{asdfadsf
+adsfasdfas
+asdfadsfadsf}
+asdfadsf
+adsfasdf
+{asdfadsfadsf}
+```
+
+With `grepflag`
+```
+$ cat test.txt | grepflag
+{asdfadsfadsfasdfasasdfadsfadsf}
+{asdfadsfadsf}
 ```
