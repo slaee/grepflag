@@ -1,9 +1,28 @@
 # grepflag
 A grep tool for CTF that will print the flag-like `ANYSTRINGS{ANYSTRINGS_NOT_EMPTY}`
 
+By: r3dh4ir
+
 ![grepflagrecursive](https://im.ezgif.com/tmp/ezgif-1-a6d8791136.gif)
 
-By: r3dh4ir
+### Sample Outputs
+```
+$ cat test.txt
+asdfasdfasdf
+{asdfadsf
+adsfasdfas
+asdfadsfadsf}
+asdfadsf
+adsfasdf
+{asdfadsfadsf}
+```
+
+With `grepflag`
+```
+$ cat test.txt | grepflag
+{asdfadsfadsfasdfasasdfadsfadsf}
+{asdfadsfadsf}
+```
 
 ### Installation 
 ```
