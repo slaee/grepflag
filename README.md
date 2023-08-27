@@ -1,6 +1,8 @@
 # grepflag
 A grep tool for CTF that will print the flag-like `ANYSTRINGS{ANYSTRINGS_NOT_EMPTY}`
 
+![grepflagrecursive](https://im.ezgif.com/tmp/ezgif-1-a6d8791136.gif)
+
 By: r3dh4ir
 
 ### Installation 
