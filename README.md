@@ -1,7 +1,7 @@
 # grepflag
 A grep tool for CTF that will print the flag-like `ANYSTRINGS{ANYSTRINGS_NOT_EMPTY}`
 
-By: r3dh4ir
+By: r3dh4ir 🏴‍☠️
 
 ![ezgif com-video-to-gif](https://github.com/slaee/grepflag/assets/64179667/e00874c0-4867-400e-9bd8-4523dfb1c911)
 
@@ -50,4 +50,19 @@ With `grepflag`
 $ cat test.txt | grepflag
 {asdfadsfadsfasdfasasdfadsfadsf}
 {asdfadsfadsf}
+```
+
+# Future grepflag project 🚀
+```
+Given list of possible flag from grepflag script:
+
+{asdfew3gsdgawewegdse3}
+{y0u_f0und_th3_fl4g}
+
+ 
+
+Expected output: 
+
+{asdfew3gsdgawewegdse3}            - Entropy Score: 34% but detected as md5 20%
+{y0u_f0und_th3_fl4g}               - Entropy Score: 98% flag
 ```
